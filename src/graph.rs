@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 /*
 Gaurav Sablok
 codeprog@icloud.com
@@ -10,14 +12,14 @@ pub fn build_genomic_graph(
     let mut graph = GenomicGraph::new();
     let mut id_to_idx: HashMap<String, NodeIndex> = HashMap::new();
 
-    // Add variants
+    // Add variants and annotations
     for v in &variants {
         let id = format!("{}_{}_{}_{}", v.chrom, v.pos, v.ref_allele, v.alt_allele);
         let idx = graph.add_node(Node::Variant(v.clone()));
         id_to_idx.insert(id, idx);
     }
 
-    // Add genes
+    // Add genes and their annotations
     for g in &genes {
         let idx = graph.add_node(Node::Gene(g.clone()));
         id_to_idx.insert(g.entrez_id.clone(), idx);
